@@ -38,7 +38,7 @@
 }
 
 #drawing-canvas {
-	width: 1500px;
-	height: 800px;
-	background-color: rgb(103, 139, 136);
+	width: 100vw;
+	height: 1076px;
+	background-color: hsl(0,0%,0%);
 }

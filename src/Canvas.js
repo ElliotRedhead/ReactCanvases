@@ -6,7 +6,7 @@ const Canvas = props => {
 	const { draw, ...rest } = props;
 	const canvasRef = useCanvas(draw);
   
-	return <canvas id="drawing-canvas" width="1500" height="800" ref={canvasRef} {...rest}/>;
+	return <canvas id="drawing-canvas" width="1920" height="1076" ref={canvasRef} {...rest}/>;
 };
 
 export default Canvas;
