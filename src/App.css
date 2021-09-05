@@ -38,7 +38,11 @@
 }
 
 #drawing-canvas {
-	width: 100vw;
-	height: 1076px;
+	/* width: 100vw;
+	height: 1076px; */
 	background-color: hsl(0,0%,0%);
+}
+
+::-webkit-scrollbar {
+	display:none;
 }

@@ -10,7 +10,7 @@ const App = () => {
 		return vector;
 	};
 
-	const numberNodes = 1000;
+	const numberNodes = 750;
 	const nodeAttrs = [];
 	for (let i=0; i < numberNodes; i++){
 		const initialX = Math.floor(Math.random() * 1920);
@@ -27,13 +27,17 @@ const App = () => {
 		let posY = initialY;
 		let opacity = initialOpacity;
 		let hue = Math.random() * (300-221) + 221;
-		nodeAttrs.push({initialX, posX, initialY, posY, rateGrowth, transformX, transformXDirection, transformY, transformYDirection, initialOpacity, opacity, opacityChange, opacityDirection, hue});
+		const previousX = [];
+		const previousY = [];
+		nodeAttrs.push({previousX, previousY, initialX, posX, initialY, posY, rateGrowth, transformX, transformXDirection, transformY, transformYDirection, initialOpacity, opacity, opacityChange, opacityDirection, hue});
 	}
 
 
 	const draw = (ctx, frameCount) => {
-		frameCount = frameCount * 1.5;
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+		const canvasWidth = window.innerWidth;
+		const canvasHeight = window.innerHeight;
 
 		
 		for (let i=0; i<nodeAttrs.length; i++){
@@ -43,17 +47,21 @@ const App = () => {
 				nodeAttrs[i].opacity = Math.sin(-frameCount * nodeAttrs[i].opacityChange) - nodeAttrs[i].initialOpacity;
 			}
 
+			nodeAttrs[i].opacity=1;
 			ctx.fillStyle = `hsl(${nodeAttrs[i].hue},65%,45%,${nodeAttrs[i].opacity})`;
 			
 			ctx.beginPath();
+			
+			nodeAttrs[i].previousX.push(nodeAttrs[i].posX);
+			nodeAttrs[i].previousY.push(nodeAttrs[i].posY);
 
 			if (nodeAttrs[i].transformXDirection){
 				nodeAttrs[i].posX = nodeAttrs[i].initialX + 300*Math.sin(frameCount * nodeAttrs[i].transformX);
 			} else {
-				nodeAttrs[i].posY = nodeAttrs[i].initialX - 300*Math.sin(frameCount * nodeAttrs[i].transformX);
+				nodeAttrs[i].posX = nodeAttrs[i].initialX - 300*Math.sin(frameCount * nodeAttrs[i].transformX);
 			}
 			if (nodeAttrs[i].posX < 0) {nodeAttrs[i].posX = Math.abs(nodeAttrs[i].posX);};
-			if (nodeAttrs[i].posX > 1920) {nodeAttrs[i].posX = 1920 - (nodeAttrs[i].posX - 1920);};
+			if (nodeAttrs[i].posX > canvasWidth) {nodeAttrs[i].posX = canvasWidth - (nodeAttrs[i].posX - canvasWidth);};
 			
 			if (nodeAttrs[i].transformYDirection){
 				nodeAttrs[i].posY = nodeAttrs[i].initialY + 300*Math.sin(frameCount * nodeAttrs[i].transformY);
@@ -61,8 +69,8 @@ const App = () => {
 				nodeAttrs[i].posY = nodeAttrs[i].initialY - 300*Math.sin(frameCount * nodeAttrs[i].transformY);
 			}
 			if (nodeAttrs[i].posY < 0) {nodeAttrs[i].posY = Math.abs(nodeAttrs[i].posY);};
-			if (nodeAttrs[i].posY > 1078) {nodeAttrs[i].posY = 1078 - (nodeAttrs[i].posY - 1078);};
-
+			if (nodeAttrs[i].posY > canvasHeight) {nodeAttrs[i].posY = canvasHeight - (nodeAttrs[i].posY - canvasHeight);};
+			
 			const growth = Math.sin(frameCount*nodeAttrs[i].rateGrowth)**2 + 5;
 			ctx.arc(nodeAttrs[i].posX, nodeAttrs[i].posY, growth, 0, 2*Math.PI);
 			ctx.fill();
@@ -86,6 +94,18 @@ const App = () => {
 				}
 			}
 		}
+
+		// for(let i=0; i<nodeAttrs.length; i++){
+		// 	for (let x = 2; x<10000; x++){
+		// 		if(x > 2){
+		// 			ctx.beginPath();
+		// 			ctx.strokeStyle = `hsl(100,100%,100%)`;
+		// 			ctx.moveTo(nodeAttrs[i].previousX[x], nodeAttrs[i].previousY[x]);
+		// 			ctx.lineTo(nodeAttrs[i].previousX[x-1], nodeAttrs[i].previousY[x-1]);
+		// 			ctx.stroke();
+		// 		}
+		// 	}
+		// }
 	};
   
 	return <Canvas draw={draw} />;
