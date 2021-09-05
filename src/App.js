@@ -10,7 +10,7 @@ const App = () => {
 		return vector;
 	};
 
-	const numberNodes = 750;
+	const numberNodes = 300;
 	const nodeAttrs = [];
 	for (let i=0; i < numberNodes; i++){
 		const initialX = Math.floor(Math.random() * 1920);
@@ -80,13 +80,14 @@ const App = () => {
 					const dx = nodeAttrs[i].posX - nodeAttrs[j].posX;
 					const dy = nodeAttrs[i].posY - nodeAttrs[j].posY;
 					const distance = Math.sqrt((dx)**2 + (dy)**2);
-					if (distance < 125 && nodeAttrs[i].opacity >= 0.15 && nodeAttrs[j].opacity >= 0.15 && Math.abs(nodeAttrs[j].hue - nodeAttrs[i].hue) < 10){
+					if (distance < 125 && nodeAttrs[i].opacity >= 0.15 && nodeAttrs[j].opacity >= 0.15){
 						// stroke opacity determined by either distance between node or node opacity (whichever is weaker)
 						const distanceOpacityFactor = (125 - distance) * 0.01;
 						const nodeOpacityFactor = Math.min(nodeAttrs[i].opacity,nodeAttrs[j].opacity);
 						const strokeOpacity = Math.min(distanceOpacityFactor, nodeOpacityFactor);
+						const lineHue = ((nodeAttrs[i].hue + nodeAttrs[j].hue)/2);
 						ctx.beginPath();
-						ctx.strokeStyle = `hsl(${nodeAttrs[i].hue},65%,45%,${strokeOpacity})`;
+						ctx.strokeStyle = `hsl(${lineHue},85%,55%,${strokeOpacity})`;
 						ctx.moveTo(nodeAttrs[i].posX, nodeAttrs[i].posY);
 						ctx.lineTo(nodeAttrs[j].posX, nodeAttrs[j].posY);
 						ctx.stroke();
