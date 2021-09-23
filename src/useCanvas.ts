@@ -1,16 +1,16 @@
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
-const useCanvas = draw => {
+const useCanvas = (draw:draw):React.RefObject<HTMLCanvasElement> => {
   
-	const canvasRef = useRef(null);
+	const canvasRef = useRef<HTMLCanvasElement>(null);
   
 	useEffect(() => {
     
 		const canvas = canvasRef.current;
-		const context = canvas.getContext('2d');
+		const context:context = canvas?.getContext("2d");
 		let frameCount = 0;
-		let animationFrameId;
+		let animationFrameId:number;
     
 		const render = () => {
 			frameCount++;
