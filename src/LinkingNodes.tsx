@@ -2,8 +2,8 @@ import Canvas from "./Canvas";
 import "./Canvas.css";
 
 interface nodeAttrs {
-	previousX: number[];
-	previousY: number[];
+	previousX: number;
+	previousY: number;
 	initialX: number;
 	posX: number;
 	initialY: number;
@@ -46,8 +46,8 @@ const LinkingNodes = ():JSX.Element => {
 		const posY = initialY;
 		const opacity = initialOpacity;
 		const hue = Math.random() * (300-221) + 221;
-		const previousX:number[]|never[] = [];
-		const previousY:number[]|never[] = [];
+		const previousX:number = initialX;
+		const previousY:number = initialY;
 		nodeAttrs.push({ previousX, previousY, initialX, posX, initialY, posY, rateGrowth, transformX, transformXDirection, transformY, transformYDirection, initialOpacity, opacity, opacityChange, opacityDirection, hue });
 	}
 
@@ -57,7 +57,6 @@ const LinkingNodes = ():JSX.Element => {
 
 			const canvasWidth = window.innerWidth;
 			const canvasHeight = window.innerHeight;
-
 		
 			for (let i=0; i<nodeAttrs.length; i++){
 				if (i % 3 !== 0){
@@ -71,8 +70,8 @@ const LinkingNodes = ():JSX.Element => {
 			
 				ctx.beginPath();
 			
-				nodeAttrs[i].previousX.push(nodeAttrs[i].posX);
-				nodeAttrs[i].previousY.push(nodeAttrs[i].posY);
+				nodeAttrs[i].previousX = nodeAttrs[i].posX;
+				nodeAttrs[i].previousY = nodeAttrs[i].posY;
 
 				if (nodeAttrs[i].transformXDirection){
 					nodeAttrs[i].posX = nodeAttrs[i].initialX + 300*Math.sin(frameCount * nodeAttrs[i].transformX);
