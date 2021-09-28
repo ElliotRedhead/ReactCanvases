@@ -8,6 +8,11 @@ const Home = (): JSX.Element => (
 					Linking Nodes
 				</Link>
 			</li>
+			<li>
+				<Link to="/animated-triangles">
+					Animated Triangles
+				</Link>
+			</li>
 		</ul>
 	</nav>
 );
