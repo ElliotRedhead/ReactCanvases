@@ -21,7 +21,6 @@ const AnimatedTriangles = ():JSX.Element => {
 		if (ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-
 			const triangleXOrdOne = triangleAttrs.initialX;
 			const triangleYOrdOne = triangleAttrs.initialY;
 			const triangleXOrdTwo = triangleAttrs.initialX+triangleAttrs.size/2;
@@ -31,15 +30,23 @@ const AnimatedTriangles = ():JSX.Element => {
 			const triangleCenterXOrd = (triangleXOrdOne + triangleXOrdTwo + triangleXOrdThree)/3;
 			const triangleCenterYOrd = (triangleYOrdOne + triangleYOrdTwo + triangleYOrdThree)/3;
 
+			const drawTriangle = (ctx:context) => {	
+				if (ctx) {
+					ctx.fillStyle = "blue";
+					ctx.beginPath();
+					ctx.moveTo(triangleXOrdOne, triangleYOrdOne);
+					ctx.lineTo(triangleXOrdTwo, triangleYOrdTwo);
+					ctx.lineTo(triangleXOrdThree, triangleYOrdThree);
+					ctx.lineTo(triangleXOrdOne, triangleYOrdOne);
+					ctx.fill();
+				}
+			};
 
-			ctx.fillStyle = "blue";
-			ctx.beginPath();
-			ctx.moveTo(triangleXOrdOne, triangleYOrdOne);
-			ctx.lineTo(triangleXOrdTwo, triangleYOrdTwo);
-			ctx.lineTo(triangleXOrdThree, triangleYOrdThree);
-			ctx.lineTo(triangleXOrdOne, triangleYOrdOne);
-			ctx.fill();
-		
+			ctx.translate(triangleCenterXOrd, triangleCenterYOrd);
+			ctx.rotate(0.01 * Math.PI / 2);
+			ctx.translate(-triangleCenterXOrd, -triangleCenterYOrd);
+			drawTriangle(ctx);
+
 		}
 
 	};
