@@ -5,15 +5,17 @@ interface triangleAttrs {
 	initialX:number;
 	initialY:number;
 	size: number;
+	longestLength: number;
 }
 
 
 const AnimatedTriangles = ():JSX.Element => {
 
 	const triangleAttrs:triangleAttrs = {
-		initialX: 300,
-		initialY: 200,
-		size: 100
+		initialX: 500,
+		initialY: 500,
+		size: 100,
+		longestLength: 500
 	};
 
 
@@ -23,16 +25,22 @@ const AnimatedTriangles = ():JSX.Element => {
 
 			const triangleXOrdOne = triangleAttrs.initialX;
 			const triangleYOrdOne = triangleAttrs.initialY;
-			const triangleXOrdTwo = triangleAttrs.initialX+triangleAttrs.size/2;
-			const triangleYOrdTwo = triangleAttrs.initialY+triangleAttrs.size;
-			const triangleXOrdThree = triangleAttrs.initialX-triangleAttrs.size/2;
-			const triangleYOrdThree = triangleAttrs.initialY+triangleAttrs.size;
-			const triangleCenterXOrd = (triangleXOrdOne + triangleXOrdTwo + triangleXOrdThree)/3;
-			const triangleCenterYOrd = (triangleYOrdOne + triangleYOrdTwo + triangleYOrdThree)/3;
+			
+			// const distance = Math.sqrt((dx)**2 + (dy)**2);
+			// offset x-ord by a known value to start with, then calculate the maximum that the y-ord can be offset by
+			const triangleXOrdTwo = triangleXOrdOne + 1 * triangleAttrs.longestLength;
+			const triangleYOrdTwo = Math.sqrt((triangleAttrs.longestLength)**2-(triangleXOrdOne-triangleXOrdTwo)**2);
+
+			// generate coordinate that fulfils the rest of the triangle based on area
+			const triangleXOrdThree = 400;
+			const triangleYOrdThree = 400;
+
+			
+
 
 			const drawTriangle = (ctx:context) => {	
 				if (ctx) {
-					ctx.fillStyle = "blue";
+					ctx.fillStyle = "white";
 					ctx.beginPath();
 					ctx.moveTo(triangleXOrdOne, triangleYOrdOne);
 					ctx.lineTo(triangleXOrdTwo, triangleYOrdTwo);
@@ -42,9 +50,9 @@ const AnimatedTriangles = ():JSX.Element => {
 				}
 			};
 
-			ctx.translate(triangleCenterXOrd, triangleCenterYOrd);
-			ctx.rotate(0.01 * Math.PI / 2);
-			ctx.translate(-triangleCenterXOrd, -triangleCenterYOrd);
+			// ctx.translate(triangleCenterXOrd, triangleCenterYOrd);
+			// ctx.rotate(0.01 * Math.PI / 2);
+			// ctx.translate(-triangleCenterXOrd, -triangleCenterYOrd);
 			drawTriangle(ctx);
 
 		}
