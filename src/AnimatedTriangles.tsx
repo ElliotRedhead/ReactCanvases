@@ -30,6 +30,7 @@ const AnimatedTriangles = ():JSX.Element => {
 	};
 
 	const gradientBetweenTwoCoordinates = (coordinateA:coordinate, coordinateB:coordinate):number => (coordinateB.y - coordinateA.y / coordinateB.x - coordinateA.x);
+	const straightLineIntercept = (coordinate:coordinate, gradient:number):number => coordinate.y - gradient * coordinate.x;
 
 	const draw = (ctx:context, frameCount:number) => {
 		if (ctx) {
