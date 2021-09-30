@@ -5,19 +5,24 @@ interface triangleAttrs {
 	initialX:number;
 	initialY:number;
 	size: number;
-	longestLength: number;
+	longestSide: number;
 }
 
 
 const AnimatedTriangles = ():JSX.Element => {
 
 	const triangleAttrs:triangleAttrs = {
-		initialX: 500,
+		initialX: 700,
 		initialY: 500,
 		size: 100,
-		longestLength: 500
+		longestSide: 300
 	};
 
+	const randomDirectionIsPositive = ():boolean => {
+		let vector;
+		Math.random() > 0.5 ? vector = true : vector = false;
+		return vector;
+	};
 
 	const draw = (ctx:context, frameCount:number) => {
 		if (ctx) {
@@ -28,12 +33,29 @@ const AnimatedTriangles = ():JSX.Element => {
 			
 			// const distance = Math.sqrt((dx)**2 + (dy)**2);
 			// offset x-ord by a known value to start with, then calculate the maximum that the y-ord can be offset by
-			const triangleXOrdTwo = triangleXOrdOne + 1 * triangleAttrs.longestLength;
-			const triangleYOrdTwo = Math.sqrt((triangleAttrs.longestLength)**2-(triangleXOrdOne-triangleXOrdTwo)**2);
+			let triangleXOrdTwo:number = triangleAttrs.initialX;
+			if (randomDirectionIsPositive()) {
+				triangleXOrdTwo = triangleXOrdOne + Math.random() * triangleAttrs.longestSide;
+			} else {
+				triangleXOrdTwo = triangleXOrdOne - Math.random() * triangleAttrs.longestSide;
+			}
 
-			// generate coordinate that fulfils the rest of the triangle based on area
-			const triangleXOrdThree = 400;
-			const triangleYOrdThree = 400;
+			let triangleYOrdTwo:number = triangleAttrs.initialY;
+
+			if (randomDirectionIsPositive()){
+				triangleYOrdTwo = triangleYOrdOne + Math.sqrt((triangleAttrs.longestSide)**2-(triangleXOrdOne-triangleXOrdTwo)**2);
+			} else {
+				triangleYOrdTwo = triangleYOrdOne - Math.sqrt((triangleAttrs.longestSide)**2-(triangleXOrdOne-triangleXOrdTwo)**2);
+			}
+
+			// TODO: generate third coordinate that fulfils the rest of the triangle based on area
+			// height = (2xarea) / base
+		
+
+
+			const triangleXOrdThree = triangleAttrs.initialX + 50;
+			const triangleYOrdThree = triangleAttrs.initialY + 50;
+
 
 			
 
