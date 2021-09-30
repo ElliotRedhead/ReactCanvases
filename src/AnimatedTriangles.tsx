@@ -8,6 +8,11 @@ interface triangleAttrs {
 	longestSide: number;
 }
 
+interface coordinate {
+	x:number;
+	y:number;
+}
+
 
 const AnimatedTriangles = ():JSX.Element => {
 
@@ -23,6 +28,8 @@ const AnimatedTriangles = ():JSX.Element => {
 		Math.random() > 0.5 ? vector = true : vector = false;
 		return vector;
 	};
+
+	const gradientBetweenTwoCoordinates = (coordinateA:coordinate, coordinateB:coordinate):number => (coordinateB.y - coordinateA.y / coordinateB.x - coordinateA.x);
 
 	const draw = (ctx:context, frameCount:number) => {
 		if (ctx) {
