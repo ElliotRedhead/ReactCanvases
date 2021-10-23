@@ -5,6 +5,7 @@ import Home from "./Home";
 import LinkingNodes from "./LinkingNodes";
 import AnimatedTriangles from "./AnimatedTriangles";
 import { BrowserRouter, Route } from "react-router-dom";
+import ThreeJs from "./ThreeJs";
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -19,6 +20,9 @@ ReactDOM.render(
 			<Route
 				path="/animated-triangles"
 				component={AnimatedTriangles} />
+			<Route
+				path="/three-js"
+				component={ThreeJs} />
 		</BrowserRouter>
 	</React.StrictMode>,
 	document.getElementById("root")

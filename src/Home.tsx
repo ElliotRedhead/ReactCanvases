@@ -13,6 +13,11 @@ const Home = (): JSX.Element => (
 					Animated Triangles
 				</Link>
 			</li>
+			<li>
+				<Link to="/three-js">
+					Three JS
+				</Link>
+			</li>
 		</ul>
 	</nav>
 );
